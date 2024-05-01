@@ -14,7 +14,6 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
 
-
 	private Giocatore giocatore;
 	private Labirinto labirinto;
 	private Stanza stanzaCorrente;

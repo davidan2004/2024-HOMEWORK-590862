@@ -35,5 +35,9 @@ public class Giocatore {
 	public boolean hasAttrezzo(String stringAttrezzo) {
 		return this.borsa.hasAttrezzo(stringAttrezzo);
 	}
+	
+	public String listaAttrezzi() {
+		return this.borsa.toString();
+	}
 }
 

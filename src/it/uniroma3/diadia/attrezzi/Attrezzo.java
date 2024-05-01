@@ -26,6 +26,10 @@ public class Attrezzo {
 		this.peso = peso;
 		this.nome = nome;
 	}
+	
+	public Attrezzo(String nome) {
+		this(nome,1);
+	}
 
 	/**
 	 * Restituisce il nome identificatore dell'attrezzo
