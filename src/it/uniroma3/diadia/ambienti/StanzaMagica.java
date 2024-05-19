@@ -36,4 +36,9 @@ public class StanzaMagica extends Stanza {
 		return super.addAttrezzo(attrezzo);
 	}
 
+	@Override
+	public boolean isMagica() {
+		return true;
+	}
+
 }

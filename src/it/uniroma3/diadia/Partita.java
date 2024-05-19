@@ -19,12 +19,20 @@ public class Partita {
 	private Stanza stanzaCorrente;
 	private boolean finita;
 	
-	public Partita(){
+	public Partita(Labirinto labirinto){
 		this.giocatore = new Giocatore();
-		this.labirinto = new Labirinto();
+		this.labirinto = labirinto;
 		this.stanzaCorrente = labirinto.getStanzaIniziale();
 		this.finita = false;
-		
+	}
+	
+	public Partita() {
+		this(new Labirinto());
+	}
+	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
+		this.stanzaCorrente = labirinto.getStanzaIniziale();
 	}
 	
 	/**
