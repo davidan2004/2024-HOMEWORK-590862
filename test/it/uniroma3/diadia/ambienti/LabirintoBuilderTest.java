@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 
 public class LabirintoBuilderTest {
 	private Labirinto vuoto;
@@ -27,7 +28,7 @@ public class LabirintoBuilderTest {
 		.addStanzaIniziale("salotto")
 		.addStanzaVincente("camera")
 		.addAttrezzo("letto",10)
-		.addAdiacenza("salotto", "camera", "nord")
+		.addAdiacenza("salotto", "camera", Direzione.NORD)
 		.getLabirinto();
 		
 		trilocale = new LabirintoBuilder()
@@ -35,8 +36,8 @@ public class LabirintoBuilderTest {
 		.addStanza("cucina")
 		.addAttrezzo("pentola",1)
 		.addStanzaVincente("camera")
-		.addAdiacenza("salotto", "cucina", "nord")
-		.addAdiacenza("cucina", "camera", "est")
+		.addAdiacenza("salotto", "cucina", Direzione.NORD)
+		.addAdiacenza("cucina", "camera", Direzione.EST)
 		.getLabirinto();
 		
 	}
@@ -63,19 +64,19 @@ public class LabirintoBuilderTest {
 	@Test
 	public void testLabirintoBilocaleAdiacenza() {
 		assertEquals("camera",
-		bilocale.getStanzaIniziale().getStanzaAdiacente("nord").getNome());
+		bilocale.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD).getNome());
 	}
 
 	@Test
 	public void testLabirintoTrilocaleAdiacenze() {
-		Stanza cucina = trilocale.getStanzaIniziale().getStanzaAdiacente("nord");
+		Stanza cucina = trilocale.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD);
 		assertEquals("cucina",cucina.getNome());
-		assertEquals("camera",cucina.getStanzaAdiacente("est").getNome());
+		assertEquals("camera",cucina.getStanzaAdiacente(Direzione.EST).getNome());
 	}
 	
 	@Test
 	public void testLabirintoTrilocaleAttrezzo() {
-		Stanza cucina = trilocale.getStanzaIniziale().getStanzaAdiacente("nord");
+		Stanza cucina = trilocale.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD);
 		assertEquals(new Attrezzo("pentola",1),cucina.getAttrezzo("pentola"));
 	}
 }

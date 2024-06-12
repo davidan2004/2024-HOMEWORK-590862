@@ -23,8 +23,8 @@ public class StanzaTest {
 		
 		stanzaAdiacenteASud = new Stanza("Stanza 2");
 		stanzaAdiacenteANord = new Stanza("Stanza 3");
-		stanzaAdiacenteASud.impostaStanzaAdiacente("sud",stanzaAdiacenteANord);
-		stanzaAdiacenteANord.impostaStanzaAdiacente("nord",stanzaAdiacenteASud);
+		stanzaAdiacenteASud.impostaStanzaAdiacente(Direzione.SUD,stanzaAdiacenteANord);
+		stanzaAdiacenteANord.impostaStanzaAdiacente(Direzione.NORD,stanzaAdiacenteASud);
 		
 		/*Test attrezzi stanze*/
 		stanzaSenzaAttrezzi = new Stanza("Stanza 4");
@@ -40,17 +40,17 @@ public class StanzaTest {
 		
 	@Test
 	public void testStanzaIsolata() {
-		assertNull(stanzaIsolata.getStanzaAdiacente("nord"));
+		assertNull(stanzaIsolata.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	@Test
 	public void testStanzaAdiacenteNellaGiustaDirezione() {
-		assertEquals(stanzaAdiacenteASud,stanzaAdiacenteANord.getStanzaAdiacente("nord"));
+		assertEquals(stanzaAdiacenteASud,stanzaAdiacenteANord.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	@Test
 	public void testStanzaAdiacenteInDirezioneSbagliata() {
-		assertNull(stanzaAdiacenteASud.getStanzaAdiacente("nord"));
+		assertNull(stanzaAdiacenteASud.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	/*Test attrezzi stanze*/

@@ -9,8 +9,8 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendiTest {
 	private Partita partita;
-	private Comando comandoPrendiNull;
-	private Comando comandoPrendiAttrezzo;
+	private AbstractComando comandoPrendiNull;
+	private AbstractComando comandoPrendiAttrezzo;
 	
 	@Before
 	public void setUp() {

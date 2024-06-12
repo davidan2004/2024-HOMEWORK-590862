@@ -2,9 +2,11 @@ package it.uniroma3.diadia.giocatore;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,12 +17,17 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 
 public class Borsa {
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
 	private int pesoMax;
 	private List<Attrezzo> attrezzi;
 	
 	public Borsa() {
-	this(DEFAULT_PESO_MAX_BORSA);
+	Properties properties = new Properties();
+	try{properties.load(this.getClass().getClassLoader().getResourceAsStream("diadia.properties"));
+	} catch(IOException e) {
+		e.printStackTrace();
+	}
+	this.attrezzi = new ArrayList<>();
+	this.pesoMax =  Integer.valueOf(properties.getProperty("peso_max_borsa"));
 	}
 	
 	public Borsa(int pesoMax) {

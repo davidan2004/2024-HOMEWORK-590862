@@ -8,12 +8,12 @@ public class LabirintoTest {
 	
 	@Test
 	public void testStanzaVincente() {
-		assertNotNull(new Labirinto().getStanzaVincente());
+		assertNotNull(Labirinto.newBuilder(new Stanza("1"),new Stanza("2")).getLabirinto().getStanzaVincente());
 	}
 	
 	@Test
 	public void testStanzaIniziale() {
-		assertNotNull(new Labirinto().getStanzaIniziale());
+		assertNotNull(Labirinto.newBuilder(new Stanza("1"),new Stanza("2")).getLabirinto().getStanzaIniziale());
 	}
 
 }

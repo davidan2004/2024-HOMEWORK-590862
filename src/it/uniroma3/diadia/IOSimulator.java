@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class IOSimulator implements IO {
 	
@@ -26,7 +27,7 @@ public class IOSimulator implements IO {
 	}
 	
 	@Override
-	public String leggiRiga() {
+	public String leggiRiga(Scanner scannerDiLinee) {
 		return righeInput.get(++numeroRigheInput);
 	}
 	

@@ -9,32 +9,32 @@ public class FabbricaDiComandiFisarmonicaTest {
 
 	@Test
 	public void testComandoNullo() {
-		Comando nullo = fabbrica.costruisciComando("");
+		AbstractComando nullo = fabbrica.costruisciComando("");
 		assertEquals("ComandoNonValido",nullo.getNome());
 	}
 
 	@Test
 	public void testComandoSenzaParametro() {
-		Comando aiuto = fabbrica.costruisciComando("aiuto");
+		AbstractComando aiuto = fabbrica.costruisciComando("aiuto");
 		assertEquals("ComandoAiuto",aiuto.getNome());
 	}
 	
 	@Test
 	public void testComandoConParametroNullo() {
-		Comando vai = fabbrica.costruisciComando("vai");
+		AbstractComando vai = fabbrica.costruisciComando("vai");
 		assertEquals("ComandoVai",vai.getNome());
 		assertNull(vai.getParametro());
 	}
 
 	@Test
 	public void testComandoConParametroNonNullo() {
-		Comando vai = fabbrica.costruisciComando("vai nord");
+		AbstractComando vai = fabbrica.costruisciComando("vai nord");
 		assertEquals("nord",vai.getParametro());
 	}
 	
 	@Test
 	public void testComandoConDueParametri() {
-		Comando prendi = fabbrica.costruisciComando("prendi attrezzo1 attrezzo2");
+		AbstractComando prendi = fabbrica.costruisciComando("prendi attrezzo1 attrezzo2");
 		assertEquals("attrezzo1",prendi.getParametro());
 	}
 }

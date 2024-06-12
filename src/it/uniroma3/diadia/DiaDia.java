@@ -1,10 +1,14 @@
 package it.uniroma3.diadia;
 
+import java.util.Scanner;
 
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
+import it.uniroma3.diadia.personaggi.Mago;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -29,28 +33,36 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	
+
 
 	static private Partita partita;
 	static private IO io;
-	
+
 	public DiaDia(Labirinto labirinto,IO inputOutput) {
 		partita = new Partita(labirinto);
 		io = inputOutput;
 	}
 	
 	public DiaDia(IO inputOutput) {
-		this(new Labirinto(),inputOutput);
+		this(null,inputOutput);
 	}
+	
+	
 
-	public void gioca() {
+
+	public void gioca(Scanner scannerDiLinee) {
 		String istruzione; 
 
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
 		do		
-			istruzione = io.leggiRiga();
+			istruzione = io.leggiRiga(scannerDiLinee);
 		while (!processaIstruzione(istruzione));
-	}   
+	}
+
+	/*metodo usato per i test*/
+	public void gioca() {
+		this.gioca(null);
+	}
 
 	/**
 	 * Processa una istruzione 
@@ -58,26 +70,29 @@ public class DiaDia {
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-	    comandoDaEseguire = factory.costruisciComando(istruzione);
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva();
+		comandoDaEseguire = factory.costruisciComando(istruzione);
 		io.mostraMessaggio(comandoDaEseguire.esegui(partita));
 		if (partita.vinta())
 			io.mostraMessaggio("Hai vinto!");
 		if (partita.getGiocatore().getCfu() == 0)
 			io.mostraMessaggio("Hai esaurito i CFU...");
 		return partita.isFinita();
-		}
+	}
 
-	public static void main(String[] argc) {
+	public static void main (String[] argc) throws ClassNotFoundException {
 		IO io = new IOConsole();
 		Labirinto labirinto = new LabirintoBuilder()
-		.addStanzaIniziale("LabCampusOne")
-		.addStanzaVincente("Biblioteca")
-		.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
-		.getLabirinto();
-		
+				.addStanzaIniziale("LabCampusOne")
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.OVEST)
+				.addPersonaggio("Stregone", "Sono un mago.", "LabCampusOne", Mago.class)
+				.getLabirinto();
+
 		DiaDia gioco = new DiaDia(labirinto,io);
-		gioco.gioca();
+		try(Scanner scannerDiLinee = new Scanner(System.in)){
+			gioco.gioca(scannerDiLinee);
+		}
 	}
 }

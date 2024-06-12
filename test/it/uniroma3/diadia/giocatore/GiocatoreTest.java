@@ -16,10 +16,9 @@ public class GiocatoreTest {
 		giocatoreCon10Cfu = new Giocatore();
 		giocatoreCon10Cfu.setCfu(10);
 		
-		spada = new Attrezzo("Spada",1);
 		giocatoreConAttrezzo = new Giocatore();
+		spada = new Attrezzo("Spada",1);
 		giocatoreConAttrezzo.addAttrezzo(spada);
-	
 	}
 
 	@Test

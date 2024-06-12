@@ -13,7 +13,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
-
+	
 	private Giocatore giocatore;
 	private Labirinto labirinto;
 	private Stanza stanzaCorrente;
@@ -26,9 +26,11 @@ public class Partita {
 		this.finita = false;
 	}
 	
-	public Partita() {
-		this(new Labirinto());
+	/*Costruttore usato per test-case*/
+	public Partita(){
+		this(Labirinto.newBuilder(new Stanza("iniziale"), new Stanza("finale")).getLabirinto());
 	}
+	
 	
 	public void setLabirinto(Labirinto labirinto) {
 		this.labirinto = labirinto;
@@ -70,4 +72,5 @@ public class Partita {
 	public Giocatore getGiocatore() {
 		return this.giocatore;
 	}
+
 }

@@ -8,42 +8,30 @@ import it.uniroma3.diadia.ambienti.Stanza;
 /**
  * Comando "Posa".
  */
-public class ComandoPosa implements Comando {
-	private String stringAttrezzo;
+public class ComandoPosa extends AbstractComando {
 
 	@Override
 	public String esegui(Partita partita) {
-		if(this.stringAttrezzo == null)
+		if(super.getParametro() == null)
 			return "Uso corretto: posa <attrezzo>";
 		
 		StringBuilder output = new StringBuilder();
 		Giocatore giocatore = partita.getGiocatore();
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		
-		if(giocatore.hasAttrezzo(this.stringAttrezzo)) {
-			Attrezzo a = giocatore.removeAttrezzo(stringAttrezzo);
+		if(giocatore.hasAttrezzo(super.getParametro())) {
+			Attrezzo a = giocatore.removeAttrezzo(super.getParametro());
 			stanzaCorrente.addAttrezzo(a);
-			output.append("Attrezzo " + stringAttrezzo + " posato in " + stanzaCorrente.getNome());
+			output.append("Attrezzo " + super.getParametro() + " posato in " + stanzaCorrente.getNome());
 		}
 		else
-			output.append("Attrezzo " + stringAttrezzo + " non presente nella borsa del giocatore");
+			output.append("Attrezzo " + super.getParametro() + " non presente nella borsa del giocatore");
 		
 		return output.toString();
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.stringAttrezzo = parametro;
 	}
 
 	@Override
 	public String getNome() {
 		return "ComandoPosa";
 	}
-	
-	@Override
-	public String getParametro() {
-		return this.stringAttrezzo;
-	}
-
 }
